@@ -20,6 +20,8 @@ from google.auth.transport import requests as google_requests
 CLIENT_ID = "354379757367-a0ru16o24hid3u56h43d8o6nda8cf9o8.apps.googleusercontent.com"
 
 app = Flask(__name__)
+app.debug = True
+app.secret_key = 'abcde'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 120  # seconds
 
 # set check_same_thread to False to deal with this version of sqlite error:
@@ -320,6 +322,4 @@ def gdisconnect():
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.secret_key = 'abcde'
     app.run(host='0.0.0.0', port=5000)
