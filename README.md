@@ -9,9 +9,9 @@ Requires software and modules include:
 * flask 1.0.2 and above
 * sqlalchemy 1.2.16 and above
 * Google api client on the server, including google.oauth2 and google.auth.transport. They can be installed by:
-'''
+```
 pip install --upgrade google-api-python-client
-'''
+```
 
 #Setup/Installation
 Extract the zip file which will contain the following files:
@@ -42,9 +42,9 @@ Extract the zip file which will contain the following files:
 		
 To run the project, in the main directory, execute:
 
-'''
+```
 python application.py
-'''
+```
 
 #Usage
 
