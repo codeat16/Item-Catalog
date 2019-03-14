@@ -1,0 +1,103 @@
+<html lang="en">
+  <head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="354379757367-a0ru16o24hid3u56h43d8o6nda8cf9o8.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+		
+		// Send the code to the server
+
+		$.ajax({
+		  type: 'POST',
+		  url: '/gconnect',	  
+		  // Always include an `X-Requested-With` header in every AJAX request,
+		  // to protect against CSRF attacks.
+		  headers: {
+		   'X-Requested-With': 'XMLHttpRequest'
+		  },
+		  contentType: 'application/octet-stream; charset=utf-8',
+		  success: function(result) {
+			// Handle or verify the server response.
+			<!--$('#res').html("ID Token: " + id_token);-->
+		  },
+		  processData: false,
+
+		  data: JSON.stringify({"idtoken":id_token, "state": "{{STATE}}" }),
+		  //data: id_token,
+		});
+	
+		// redirect back to site home
+		setTimeout( function() {
+			window.location.replace("/");
+			}, 3000)
+		
+      }
+    </script>
+
+<!--
+<p id="res">Token empty</p>
+<p id="clienttoken">State is {{STATE}}</p>
+-->
+
+{% if SIGNEDIN %}
+<!--<a href="#" onclick="signOut();">Sign out</a>-->
+<button onclick="signOut();">Sign out</button>
+{% endif %}
+
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+		console.log('User signed out.');
+		$('#res').html("Token empty");
+		
+		// send disconnect to server
+		$.ajax({
+		  type: 'POST',
+		  url: '/gdisconnect',	  
+		  // Always include an `X-Requested-With` header in every AJAX request,
+		  // to protect against CSRF attacks.
+		  headers: {
+		   'X-Requested-With': 'XMLHttpRequest'
+		  },
+		  contentType: 'application/octet-stream; charset=utf-8',
+		  success: function(result) {
+			// Handle or verify the server response.
+			<!--$('#res').html("Token empty, user signed out");-->
+		  },
+		  processData: false,
+
+		  data: JSON.stringify({"state": "{{STATE}}" }),
+		  //data: id_token,
+		});
+
+		// redirect back to site home
+		setTimeout( function() {
+			window.location.replace("/");
+			}, 3000)
+		
+    });
+  }
+</script>
+
+<a href="/"> Cancel</a>
+
+  </body>
+</html>

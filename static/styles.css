@@ -1,0 +1,65 @@
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+flashsection {
+  float: left;	
+  width: 70%;  
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+accountsection {
+  float: right;
+  text-align: right;
+}
+
+nav {
+  float: left;
+  width: 30%;
+  height: 90%;
+  background: #ccc;
+  padding: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 60%;
+  height: 90%;  
+  background-color: #f1f1f1;
+}
+
+category {
+  font-size: 16px;
+}
+section {
+  font-size: 12px;
+}
+
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+item_name {
+  font-size: 14px;
+}
+item_description {
+  font-size: 14px;
+}
+
+td {
+  vertical-align: top;
+}
+

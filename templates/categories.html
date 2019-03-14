@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+
+
+<body>
+
+<header>Catalog</header>
+
+<topbar>
+<flashsection>
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+        <!--  
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+		-->
+		{{ messages[-1] }}
+	{% else %}		
+
+	{% endif %}
+		
+{% endwith %}
+</flashsection>
+	
+<accountsection>
+{% include "loginsection.html" %}
+</accountsection>
+
+<!-- separator-->
+<br></br>
+<!-- separator-->
+	
+</topbar>
+
+<section>
+<nav>
+{% include "categoriessection.html" %}
+</nav>
+
+<article>
+{% include "itemsection.html" %}
+</article>
+
+</section>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+{% if category != none %}
+		<h2>{{ category.name }}</h2>
+	
+
+    {% if items !=[] %}
+
+		
+	<h3>Items</h3>
+	{% if category.user_id == userid %}
+	<a href = "{{url_for('newItem', category_id = category.id )}}">Create New</a>
+	{% else %}
+	<a></a>
+	{% endif %}
+	
+	<br><br>
+	
+	<table style="width:100%">
+  		{% for i in items %}
+		<tr>
+			<td><item_name>{{i.name}}</item_name>
+				<br>
+				{% if category.user_id == userid %}
+				<a href='{{url_for('editItem', category_id = category.id, item_id=i.id ) }}' >Edit</a>
+				<br>
+				<a href='{{url_for('deleteItem', category_id = category.id, item_id=i.id ) }}' >Delete</a>
+				{% else %}
+				<a></a>
+				{% endif %}
+				<p>
+			</td>
+			
+			<td><item_description>{{i.description}}</item_description>
+				<p>
+			</td>
+		</tr>
+		{% endfor %}
+
+	</table>
+
+
+	{% else %}
+		<p> You currently have no item. <p>
+		<a href = "{{url_for('newItem', category_id = category.id )}}">Create New Item</a>
+	{% endif %}
+	
+{% endif %}

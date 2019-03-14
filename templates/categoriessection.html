@@ -1,0 +1,33 @@
+
+
+<h2>Categories</h2>
+{% if username != none %}
+<a href="{{url_for('newCategory')}}" > Create New </a>
+{% else %}
+<a></a>
+{% endif %}
+
+{% if categories != [] %}
+<ul>
+{% for c in categories %}
+	<li>
+	<category> 
+	{% if c == category %}
+	{{c.name}} 
+	{% else %}
+	<a href = "{{url_for('showItem', category_id = c.id)}}"> {{c.name}} </a>
+	{% endif %}
+	</category>
+	
+	{% if c.user_id == userid %}
+	<a href = "{{url_for('editCategory',category_id = c.id)}}">Edit</a>
+
+	<a href = "{{url_for('deleteCategory',category_id = c.id)}}">Delete</a>
+	{% else %}
+	<a></a>
+	{% endif %}
+	
+	</li>
+{% endfor %}
+</ul>
+{% endif %}
